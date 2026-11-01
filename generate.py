@@ -495,18 +495,41 @@ def render(templates_dir, tpl_name, values, doc, ip):
 def render_og_png(svg_path, png_path):
     """Растеризует og-image.svg в og-image.png (1200x630), необходимый для X / Open Graph."""
     cmds = []
-    if shutil.which("sips"):
-        cmds.append(["sips", "-s", "format", "png", str(svg_path), "--out", str(png_path)])
     if shutil.which("rsvg-convert"):
         cmds.append(["rsvg-convert", "-w", "1200", "-h", "630", str(svg_path), "-o", str(png_path)])
     if shutil.which("resvg"):
         cmds.append(["resvg", "-w", "1200", "-h", "630", str(svg_path), str(png_path)])
+    if shutil.which("sips"):
+        cmds.append(["sips", "-s", "format", "png", str(svg_path), "--out", str(png_path)])
+    if shutil.which("inkscape"):
+        cmds.append(["inkscape", "--export-type=png", f"--export-filename={png_path}",
+                     "-w", "1200", "-h", "630", str(svg_path)])
     if shutil.which("magick"):
         cmds.append(["magick", str(svg_path), str(png_path)])
+    if shutil.which("convert"):
+        cmds.append(["convert", str(svg_path), str(png_path)])
     for cmd in cmds:
+        png_path.unlink(missing_ok=True)
         res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if res.returncode == 0 and png_path.is_file() and png_path.stat().st_size > 0:
             return True
+    try:
+        import cairosvg
+        png_path.unlink(missing_ok=True)
+        cairosvg.svg2png(url=str(svg_path), write_to=str(png_path), output_width=1200, output_height=630)
+        if png_path.is_file() and png_path.stat().st_size > 0:
+            return True
+    except Exception:
+        pass
+    try:
+        import resvg_py
+        png_path.unlink(missing_ok=True)
+        png_bytes = resvg_py.svg_to_bytes(svg_path=str(svg_path), width=1200, height=630)
+        if png_bytes:
+            png_path.write_bytes(bytes(png_bytes))
+            return True
+    except Exception:
+        pass
     return False
 
 
@@ -616,7 +639,8 @@ def main(argv=None):
             print(f"  записан {png_out} ({png_out.stat().st_size:,} байт)".replace(",", " "))
         elif not a.quiet:
             print("предупреждение: не удалось сконвертировать og-image.svg в og-image.png "
-                  "(нужен sips, rsvg-convert, resvg или ImageMagick)", file=sys.stderr)
+                  "(нужен rsvg-convert, resvg, sips, inkscape или ImageMagick; "
+                  "Debian/Ubuntu: sudo apt install librsvg2-bin)", file=sys.stderr)
     return 0
 
 

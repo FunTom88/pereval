@@ -91,7 +91,7 @@ SSH_KEY="${SSH_KEY/#\~/$HOME}"
 [[ -f $SSH_KEY ]] || die "ключ не найден: $SSH_KEY"
 [[ -r $SSH_KEY ]] || die "ключ недоступен для чтения: $SSH_KEY"
 
-perms=$(stat -f '%Lp' "$SSH_KEY" 2>/dev/null || stat -c '%a' "$SSH_KEY" 2>/dev/null || echo "")
+perms=$(stat -c '%a' "$SSH_KEY" 2>/dev/null || stat -f '%Lp' "$SSH_KEY" 2>/dev/null || echo "")
 if [[ -n $perms && $perms != 400 && $perms != 600 ]]; then
 	warn "права на ключ $perms, ssh может отказаться его использовать: chmod 600 $SSH_KEY"
 fi

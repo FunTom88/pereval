@@ -24,7 +24,10 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install pyyaml
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq librsvg2-bin fonts-dejavu-core
+          pip install pyyaml
 
       - name: Generate configuration files
         env:
