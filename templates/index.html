@@ -136,7 +136,7 @@ margin-bottom:10px}
 padding:14px 18px;margin:20px 0}
 .note strong{color:var(--warn)}
 .note p{margin:8px 0 0}.note p:first-of-type{margin-top:0}
-.tabs{display:flex;gap:6px;margin:18px 0 0;border-bottom:1px solid var(--line)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0;border-bottom:1px solid var(--line)}
 .tabs button{font:inherit;font-size:15px;cursor:pointer;background:none;border:0;
 border-bottom:2px solid transparent;padding:10px 16px;color:var(--mute)}
 .tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
@@ -243,10 +243,11 @@ font:12px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--mut
   прокси не касается вовсе, и это важно: многие из них сами блокируют зарубежные адреса.</p>
 </div>
 
-<h2 id="setup">Как настроить DNS на iOS, macOS, Windows и Linux</h2>
+<h2 id="setup">Как настроить DNS на iOS, Android, macOS, Windows и Linux</h2>
 <div class="tabs" role="tablist" aria-label="Операционная система">
   <button type="button" role="tab" id="tab-mac" aria-controls="mac" aria-selected="true">macOS</button>
   <button type="button" role="tab" id="tab-ios" aria-controls="ios" aria-selected="false">iOS / iPadOS</button>
+  <button type="button" role="tab" id="tab-and" aria-controls="and" aria-selected="false">Android</button>
   <button type="button" role="tab" id="tab-win" aria-controls="win" aria-selected="false">Windows</button>
   <button type="button" role="tab" id="tab-lin" aria-controls="lin" aria-selected="false">Linux</button>
 </div>
@@ -290,6 +291,34 @@ networksetup -setdnsservers Wi-Fi empty</code></pre>
     <li>Откройте «Настройки» → «Wi-Fi» и нажмите значок <strong>ⓘ</strong> рядом с вашей сетью.</li>
     <li>Прокрутите вниз до «Настройка DNS» и переключите с «Автоматически» на «Вручную».</li>
     <li>Удалите существующие записи, нажмите «Добавить сервер» и введите <code>{{ip}}</code>, затем «Сохранить».</li>
+  </ol>
+</div>
+
+<div class="panel" id="and" role="tabpanel" aria-labelledby="tab-and">
+  <h3>Настройка DNS на Android</h3>
+  <h4 class="subhead">Частный DNS (Android 9+, Wi-Fi и мобильная сеть)</h4>
+  <p>Встроенная функция «Частный DNS» (Private DNS) настраивает зашифрованный DNS-over-TLS через <code>{{domain}}</code> и работает сразу и по Wi-Fi, и в мобильной сети (LTE / 5G) без сторонних приложений.</p>
+  <div class="ipbox" style="margin:14px 0 18px">
+    <div>
+      <p class="lab">Имя хоста частного DNS</p>
+      <p class="ip" style="font-size:19px">{{domain}}</p>
+    </div>
+    <button class="copy" type="button"
+      onclick="navigator.clipboard.writeText('{{domain}}');this.textContent='Скопировано'">Копировать</button>
+  </div>
+  <ol>
+    <li>Откройте «Настройки» → «Сеть и интернет» → «Частный DNS» (или «Приватный DNS»).<br>
+        <em>Samsung (One UI):</em> «Настройки» → «Подключения» → «Другие настройки подключения» → «Частный DNS-сервер».<br>
+        <em>Xiaomi (HyperOS / MIUI):</em> «Настройки» → «Подключение и общий доступ» → «Частный DNS-сервер».</li>
+    <li>Выберите пункт «Имя хоста поставщика частного DNS» (или «Специальный DNS-сервер»).</li>
+    <li>Введите <code>{{domain}}</code> и нажмите «Сохранить».</li>
+  </ol>
+  <p>Чтобы отключить: верните настройку «Частный DNS» в положение «Автоматически» или «Выкл.».</p>
+  <h4 class="subhead">Или вручную только для текущей сети Wi-Fi</h4>
+  <ol>
+    <li>Откройте «Настройки» → «Сеть и интернет» → «Интернет» (или «Wi-Fi») и нажмите на значок шестерёнки рядом с вашей сетью.</li>
+    <li>Нажмите «Изменить» (значок карандаша), раскройте «Дополнительные параметры» и переключите «Настройки IP» с «DHCP» на «Статический» (или «Пользовательский»).</li>
+    <li>В поле «DNS 1» введите <code>{{ip}}</code> (поле «DNS 2» оставьте пустым или укажите тот же адрес), затем нажмите «Сохранить».</li>
   </ol>
 </div>
 
