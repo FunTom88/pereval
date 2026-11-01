@@ -73,6 +73,8 @@ TEMPLATES = OrderedDict([
     ("nginx-sni-allow.map", "nginx-sni-allow.map"),
     ("nginx-host-allow.map", "nginx-host-allow.map"),
     ("index.html", "index.html"),
+    ("terms.html", "terms.html"),
+    ("privacy.html", "privacy.html"),
     ("dns.mobileconfig", "dns.mobileconfig"),
     ("og-image.svg", "og-image.svg"),
     ("robots.txt", "robots.txt"),
