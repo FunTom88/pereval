@@ -87,7 +87,6 @@ categories:
         domains:
           - x.ai
           - grok.com
-          - grok.x.com
       - name: Microsoft Copilot
         domains:
           - copilot.microsoft.com
@@ -145,15 +144,6 @@ categories:
           - hashicorp.com
           - terraform.io
           - vagrantcloud.com
-      - name: Notion
-        domains:
-          - notion.so
-          - notion.com
-          - notion.new
-          - notion.site
-          - notion-static.com
-          - notion-emojis.s3-us-west-2.amazonaws.com
-          - code.gist.build
       - name: Atlassian
         domains:
           - atlassian.com
