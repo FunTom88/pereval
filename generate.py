@@ -46,6 +46,8 @@ import html
 import ipaddress
 import json
 import re
+import shutil
+import subprocess
 import sys
 import uuid
 from collections import OrderedDict
@@ -490,6 +492,24 @@ def render(templates_dir, tpl_name, values, doc, ip):
     return substitute(path.read_text(encoding="utf-8"), local, str(path))
 
 
+def render_og_png(svg_path, png_path):
+    """Растеризует og-image.svg в og-image.png (1200x630), необходимый для X / Open Graph."""
+    cmds = []
+    if shutil.which("sips"):
+        cmds.append(["sips", "-s", "format", "png", str(svg_path), "--out", str(png_path)])
+    if shutil.which("rsvg-convert"):
+        cmds.append(["rsvg-convert", "-w", "1200", "-h", "630", str(svg_path), "-o", str(png_path)])
+    if shutil.which("resvg"):
+        cmds.append(["resvg", "-w", "1200", "-h", "630", str(svg_path), str(png_path)])
+    if shutil.which("magick"):
+        cmds.append(["magick", str(svg_path), str(png_path)])
+    for cmd in cmds:
+        res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if res.returncode == 0 and png_path.is_file() and png_path.stat().st_size > 0:
+            return True
+    return False
+
+
 # --------------------------------------------------------------------- CLI
 
 
@@ -589,6 +609,14 @@ def main(argv=None):
     for fname, body in rendered:
         (out / fname).write_text(body, encoding="utf-8")
         print(f"  записан {out / fname} ({len(body):,} байт)".replace(",", " "))
+    svg_out = out / "og-image.svg"
+    png_out = out / "og-image.png"
+    if svg_out.is_file():
+        if render_og_png(svg_out, png_out):
+            print(f"  записан {png_out} ({png_out.stat().st_size:,} байт)".replace(",", " "))
+        elif not a.quiet:
+            print("предупреждение: не удалось сконвертировать og-image.svg в og-image.png "
+                  "(нужен sips, rsvg-convert, resvg или ImageMagick)", file=sys.stderr)
     return 0
 
 
