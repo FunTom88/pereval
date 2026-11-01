@@ -52,7 +52,7 @@
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="{{origin}}/">
 <meta property="og:title" content="DNS-прокси для доступа к ChatGPT, Claude и Gemini — {{name}}">
-<meta property="og:description" content="DNS-сервер в Казахстане, который возвращает доступ к {{total}} доменам сервисов для работы с ИИ и разработки, закрытых для России и Беларуси: ChatGPT, Claude, Gemini, Cursor, JetBrains, Notion. Без VPN-клиента — один адрес в настройках сети.">
+<meta property="og:description" content="DNS-сервер в Казахстане, который восстанавливает доступ к {{total}} доменам зарубежных ИИ и инструментов разработки, ограничивающих российские и белорусские IP-адреса по геолокации: ChatGPT, Claude, Gemini, Cursor, JetBrains. Без VPN-клиента — один адрес в настройках сети.">
 <meta property="article:modified_time" content="{{date}}">
 <meta property="og:image" content="{{origin}}/og-image.png">
 <meta property="og:image:type" content="image/png">
@@ -61,7 +61,7 @@
 <meta property="og:image:alt" content="{{name}} — DNS-прокси для доступа к закрытым сервисам">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DNS-прокси для доступа к ChatGPT, Claude и Gemini — {{name}}">
-<meta name="twitter:description" content="DNS-сервер в Казахстане, который возвращает доступ к {{total}} доменам сервисов для работы с ИИ и разработки, закрытых для России и Беларуси: ChatGPT, Claude, Gemini, Cursor, JetBrains, Notion. Без VPN-клиента — один адрес в настройках сети.">
+<meta name="twitter:description" content="DNS-сервер в Казахстане, который восстанавливает доступ к {{total}} доменам зарубежных ИИ и инструментов разработки, ограничивающих российские и белорусские IP-адреса по геолокации: ChatGPT, Claude, Gemini, Cursor, JetBrains. Без VPN-клиента — один адрес в настройках сети.">
 <meta name="twitter:image" content="{{origin}}/og-image.png">
 <meta name="twitter:image:alt" content="{{name}} — DNS-прокси для доступа к закрытым сервисам">
 <script type="application/ld+json">
@@ -74,8 +74,8 @@
  "description":"Доступ к ChatGPT, Claude, Gemini, Cursor, JetBrains и всего {{total}} доменам для работы с ИИ и разработки, закрытым для России и Беларуси.",
  "inLanguage":"ru-RU","isPartOf":{"@id":"{{origin}}/#website"},"dateModified":"{{date}}"},
 {"@type":"Service","@id":"{{origin}}/#service","name":"{{name}}",
- "serviceType":"DNS-прокси для доступа к геозаблокированным сервисам",
- "description":"Доступ к {{total}} доменам сервисов, закрытых для России и Беларуси.",
+ "serviceType":"DNS-прокси для доступа к зарубежным ИИ и инструментам разработки с региональными ограничениями",
+ "description":"Восстанавливает доступ к {{total}} доменам зарубежных ИИ и инструментов разработки, ограничивающих российские и белорусские IP-адреса по геолокации.",
  "areaServed":[{"@type":"Country","name":"Россия"},{"@type":"Country","name":"Беларусь"}],
  "provider":{"@type":"Organization","name":"{{name}}","url":"{{origin}}/"}},
 {"@type":"FAQPage","@id":"{{origin}}/#faq","mainEntity":{{faq_entities}}},
@@ -173,6 +173,7 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 border-top:1px solid var(--line);margin-top:60px;padding-top:22px;
 font-size:14px;color:var(--mute)}
 footer p{margin:0;flex:1;min-width:240px}
+footer p.legal{flex:0 0 100%;font-size:12.5px;line-height:1.5;max-width:none;opacity:.85}
 .brand a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .brand a:hover{color:var(--accent)}
 .creator-card{margin:44px 0 0;padding:24px 26px;background:var(--panel);
@@ -204,8 +205,9 @@ font:12px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--mut
     <p class="lede">Если ChatGPT отвечает «not available in your country», Claude
     не открывается, а Gemini просит сменить регион — дело в вашем IP-адресе, а не
     в блокировках Роскомнадзора. {{name}} — частный DNS-сервер в Казахстане, который
-    возвращает доступ к {{total}} доменам популярных ИИ-сервисов и инструментов для
-    разработчиков: ChatGPT, Claude, Gemini, Cursor, JetBrains, Notion и других. Достаточно указать один адрес в настройках
+    восстанавливает доступ к зарубежным ИИ и инструментам разработки, ограничивающим
+    российские и белорусские IP-адреса по геолокации ({{total}} доменов: ChatGPT, Claude,
+    Gemini, Cursor, JetBrains и др.). Достаточно указать один адрес в настройках
     сети: без VPN-клиента, без расширений для браузера и без настройки каждого приложения
     отдельно.</p>
     <div class="ipbox">
@@ -377,7 +379,7 @@ nameserver {{ip}}</code></pre>
   <strong>Firefox:</strong> «Настройки» → «Приватность и защита» → «DNS через HTTPS» →
   выберите «Отключено».<br>
   <strong>Safari:</strong> менять ничего не нужно, он следует системным настройкам.</p>
-  <p><strong>Если сайт открывается, но всё равно сообщает о блокировке</strong> — скорее
+  <p><strong>Если сайт открывается, но всё равно сообщает о недоступности в вашем регионе</strong> — скорее
   всего соединение прошло по IPv6, минуя подмену. Отключите IPv6 на интерфейсе или
   подключитесь к сети без IPv6.</p>
 </div>
@@ -448,7 +450,7 @@ $ portbuddy tcp 5432</code></pre>
 <details class="faq"><summary>Снизится ли скорость интернета?</summary><p>Только для доменов из списка — их трафик идёт через Казахстан, и к задержке добавляется путь до Алматы. Все остальные сайты, включая российские, подключаются напрямую и работают с прежней скоростью.</p></details>
 <details class="faq"><summary>Видит ли сервер мой трафик?</summary><p>Нет. TLS-соединение не расшифровывается: сервер читает только имя хоста, которое браузер и так передаёт открытым текстом, и пересылает соединение дальше байт в байт. Сертификат проверяет ваше устройство, и он настоящий — от Anthropic, OpenAI или Google, а не подставной.</p></details>
 <details class="faq"><summary>Сервис всё равно пишет, что недоступен в моей стране. Почему?</summary><p>Три обычные причины. Первая: в браузере включён шифрованный DNS (DNS-over-HTTPS) и системные настройки игнорируются. Вторая: соединение прошло по IPv6, минуя подмену адреса. Третья: сервис проверяет не адрес, а страну аккаунта или платёжной карты — так работают лицензии JetBrains, и здесь прокси не поможет.</p></details>
-<details class="faq"><summary>Нужного домена нет в списке. Что делать?</summary><p>Он будет разрешаться обычным образом и останется заблокированным. Создайте Issue в репозитории <a href="https://github.com/amak-tech/pereval/issues" target="_blank" rel="noopener">github.com/amak-tech/pereval</a> с адресом сайта — домен добавляется в список за пару минут, вместе со всеми поддоменами.</p></details>
+<details class="faq"><summary>Нужного домена нет в списке. Что делать?</summary><p>Он будет разрешаться обычным образом и продолжит выдавать ошибку регионального доступа со стороны сервиса (останется недоступным из вашего региона). Создайте Issue в репозитории <a href="https://github.com/amak-tech/pereval/issues" target="_blank" rel="noopener">github.com/amak-tech/pereval</a> с адресом сайта — домен добавляется в список за пару минут, вместе со всеми поддоменами.</p></details>
 
 <h2 id="off">Отключено намеренно</h2>
 {{disabled}}
@@ -467,11 +469,10 @@ $ portbuddy tcp 5432</code></pre>
   <tr><td>Мобильные приложения с закреплением сертификата (pinning)</td>
       <td>Работают: сертификат настоящий, соединение сквозное</td></tr>
   <tr><td>Домена нет в списке</td>
-      <td>Он разрешается обычным образом и остаётся заблокированным. Предложите его через
+      <td>Он разрешается обычным образом и остаётся недоступным из вашего региона (продолжит выдавать ошибку регионального доступа со стороны сервиса). Предложите его через
           <a href="https://github.com/amak-tech/pereval/issues" target="_blank" rel="noopener">GitHub Issues</a> — добавим</td></tr>
-  <tr><td>Сайты, заблокированные внутри России, а не блокирующие Россию</td>
-      <td>Не входит в задачу. Этот сервер снимает только ограничения со стороны самих
-          сервисов</td></tr>
+  <tr><td>Ресурсы, доступ к которым ограничен законодательством РФ или РБ</td>
+      <td>Не входит в задачу. Сервис восстанавливает доступ только к зарубежным ИИ и инструментам разработки, ограничивающим российские и белорусские IP-адреса по геолокации со своей стороны</td></tr>
   </tbody>
 </table>
 
@@ -480,6 +481,7 @@ $ portbuddy tcp 5432</code></pre>
 <footer class="wrap">
   <p>Проект поддерживается командой <a href="https://portbuddy.dev/?utm_source=pereval&amp;utm_medium=referral&amp;utm_campaign=portbuddy&amp;utm_content=footer" target="_blank" rel="noopener" data-pb-placement="footer">Port Buddy</a> — публичные HTTP, TCP и UDP-туннели для локальной разработки. Обновлено {{date}}.</p>
   <a href='https://ko-fi.com/S0D829QQHC' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+  <p class="legal">Сервис не является средством обхода блокировок Роскомнадзора или Мининформа РБ, работает строго по фиксированному списку незапрещённых зарубежных IT-платформ и не предоставляет доступ к ресурсам, ограниченным законодательством РФ и РБ.</p>
 </footer>
 
 <script>
