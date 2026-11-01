@@ -40,7 +40,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DNS-прокси для доступа к ChatGPT, Claude и Gemini — {{name}}</title>
-<meta name="description" content="Доступ к ChatGPT, Claude, Gemini, Netflix и ещё {{total}} доменам, закрытым для России и Беларуси. Один адрес DNS в настройках сети, без VPN-клиента.">
+<meta name="description" content="Доступ к ChatGPT, Claude, Gemini, Cursor, JetBrains и всего {{total}} доменам для работы с ИИ и разработки, закрытым для России и Беларуси. Один адрес DNS в настройках сети, без VPN-клиента.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
@@ -52,7 +52,7 @@
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="{{origin}}/">
 <meta property="og:title" content="DNS-прокси для доступа к ChatGPT, Claude и Gemini — {{name}}">
-<meta property="og:description" content="DNS-сервер в Казахстане, который возвращает доступ к {{total}} доменам сервисов, закрытых для России и Беларуси: ChatGPT, Claude, Gemini, JetBrains, Netflix, Spotify. Без VPN-клиента — один адрес в настройках сети.">
+<meta property="og:description" content="DNS-сервер в Казахстане, который возвращает доступ к {{total}} доменам сервисов для работы с ИИ и разработки, закрытых для России и Беларуси: ChatGPT, Claude, Gemini, Cursor, JetBrains, Notion. Без VPN-клиента — один адрес в настройках сети.">
 <meta property="article:modified_time" content="{{date}}">
 <!-- og:image требует PNG или JPEG 1200x630. Сконвертируйте og-image.svg и раскомментируйте:
 <meta property="og:image" content="{{origin}}/og-image.png">
@@ -62,7 +62,7 @@
 -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DNS-прокси для доступа к ChatGPT, Claude и Gemini — {{name}}">
-<meta name="twitter:description" content="DNS-сервер в Казахстане, который возвращает доступ к {{total}} доменам сервисов, закрытых для России и Беларуси: ChatGPT, Claude, Gemini, JetBrains, Netflix, Spotify. Без VPN-клиента — один адрес в настройках сети.">
+<meta name="twitter:description" content="DNS-сервер в Казахстане, который возвращает доступ к {{total}} доменам сервисов для работы с ИИ и разработки, закрытых для России и Беларуси: ChatGPT, Claude, Gemini, Cursor, JetBrains, Notion. Без VPN-клиента — один адрес в настройках сети.">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"WebSite","@id":"{{origin}}/#website","url":"{{origin}}/","name":"{{name}}",
@@ -70,7 +70,7 @@
  "inLanguage":"ru-RU"},
 {"@type":"WebPage","@id":"{{origin}}/#webpage","url":"{{origin}}/",
  "name":"DNS-прокси для доступа к ChatGPT, Claude и Gemini — {{name}}",
- "description":"Доступ к ChatGPT, Claude, Gemini, Netflix и ещё {{total}} доменам, закрытым для России и Беларуси.",
+ "description":"Доступ к ChatGPT, Claude, Gemini, Cursor, JetBrains и всего {{total}} доменам для работы с ИИ и разработки, закрытым для России и Беларуси.",
  "inLanguage":"ru-RU","isPartOf":{"@id":"{{origin}}/#website"},"dateModified":"{{date}}"},
 {"@type":"Service","@id":"{{origin}}/#service","name":"{{name}}",
  "serviceType":"DNS-прокси для доступа к геозаблокированным сервисам",
@@ -203,8 +203,8 @@ font:12px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--mut
     <p class="lede">Если ChatGPT отвечает «not available in your country», Claude
     не открывается, а Gemini просит сменить регион — дело в вашем IP-адресе, а не
     в блокировках Роскомнадзора. {{name}} — частный DNS-сервер в Казахстане, который
-    возвращает доступ к {{total}} доменам таких сервисов: ChatGPT, Claude, Gemini, JetBrains,
-    Notion, Netflix, Spotify и сотням других. Достаточно указать один адрес в настройках
+    возвращает доступ к {{total}} доменам популярных ИИ-сервисов и инструментов для
+    разработчиков: ChatGPT, Claude, Gemini, Cursor, JetBrains, Notion и других. Достаточно указать один адрес в настройках
     сети: без VPN-клиента, без расширений для браузера и без настройки каждого приложения
     отдельно.</p>
     <div class="ipbox">
@@ -395,11 +395,11 @@ $ portbuddy tcp 5432</code></pre>
 </aside>
 
 <h2 id="services">Какие сервисы охвачены</h2>
-<p>{{total}} домена в {{category_count}} категориях. Поддомены включаются автоматически:
+<p>{{total}} доменов в {{category_count}} категориях. Поддомены включаются автоматически:
 <code>anthropic.com</code> покрывает и <code>api.anthropic.com</code>, и любой другой хост
 внутри.</p>
 <label class="vh" for="q">Поиск по списку доменов</label>
-<input id="q" type="search" placeholder="Поиск — например claude, netflix, jetbrains, .ai" autocomplete="off">
+<input id="q" type="search" placeholder="Поиск — например claude, cursor, jetbrains, .ai" autocomplete="off">
 <nav class="toc" aria-label="Категории сервисов">{{toc}}</nav>
 {{cards}}
 
@@ -416,8 +416,8 @@ $ portbuddy tcp 5432</code></pre>
 <details class="faq"><summary>Нужно ли что-то устанавливать?</summary><p>Нет. Ни клиента, ни расширения, ни сертификата. Меняется одно поле в настройках сети — адрес DNS-сервера.</p></details>
 <details class="faq"><summary>Работает ли это на iPhone и Android?</summary><p>Да, и по Wi-Fi, и в мобильной сети. На iPhone и iPad скачайте и установите профиль конфигурации (.mobileconfig) во вкладке «iOS / iPadOS» — он включает DNS-over-TLS для всех сетей сразу. На Android 9+ откройте «Настройки» → «Сеть и интернет» → «Приватный DNS» (или «Частный DNS») и укажите имя хоста <code>{{domain}}</code>. По Wi-Fi также можно просто прописать адрес <code>{{ip}}</code> вручную в свойствах сети.</p></details>
 <details class="faq"><summary>Снизится ли скорость интернета?</summary><p>Только для доменов из списка — их трафик идёт через Казахстан, и к задержке добавляется путь до Алматы. Все остальные сайты, включая российские, подключаются напрямую и работают с прежней скоростью.</p></details>
-<details class="faq"><summary>Видит ли сервер мой трафик?</summary><p>Нет. TLS-соединение не расшифровывается: сервер читает только имя хоста, которое браузер и так передаёт открытым текстом, и пересылает соединение дальше байт в байт. Сертификат проверяет ваше устройство, и он настоящий — от Anthropic, Google или Netflix, а не подставной.</p></details>
-<details class="faq"><summary>Сервис всё равно пишет, что недоступен в моей стране. Почему?</summary><p>Три обычные причины. Первая: в браузере включён шифрованный DNS (DNS-over-HTTPS) и системные настройки игнорируются. Вторая: соединение прошло по IPv6, минуя подмену адреса. Третья: сервис проверяет не адрес, а страну аккаунта или платёжной карты — так работают лицензии JetBrains и подписки Adobe, и здесь прокси не поможет.</p></details>
+<details class="faq"><summary>Видит ли сервер мой трафик?</summary><p>Нет. TLS-соединение не расшифровывается: сервер читает только имя хоста, которое браузер и так передаёт открытым текстом, и пересылает соединение дальше байт в байт. Сертификат проверяет ваше устройство, и он настоящий — от Anthropic, OpenAI или Google, а не подставной.</p></details>
+<details class="faq"><summary>Сервис всё равно пишет, что недоступен в моей стране. Почему?</summary><p>Три обычные причины. Первая: в браузере включён шифрованный DNS (DNS-over-HTTPS) и системные настройки игнорируются. Вторая: соединение прошло по IPv6, минуя подмену адреса. Третья: сервис проверяет не адрес, а страну аккаунта или платёжной карты — так работают лицензии JetBrains, и здесь прокси не поможет.</p></details>
 <details class="faq"><summary>Нужного домена нет в списке. Что делать?</summary><p>Он будет разрешаться обычным образом и останется заблокированным. Создайте Issue в репозитории <a href="https://github.com/amak-tech/pereval/issues" target="_blank" rel="noopener">github.com/amak-tech/pereval</a> с адресом сайта — домен добавляется в список за пару минут, вместе со всеми поддоменами.</p></details>
 
 <h2 id="off">Отключено намеренно</h2>
@@ -433,10 +433,7 @@ $ portbuddy tcp 5432</code></pre>
   <thead><tr><th scope="col">Ситуация</th><th scope="col">Что происходит</th></tr></thead>
   <tbody>
   <tr><td>Сервис проверяет страну аккаунта или платёжного средства, а не адрес</td>
-      <td>Прокси не поможет — так работают лицензии JetBrains и подписки Adobe</td></tr>
-  <tr><td>Региональные лицензии на контент</td>
-      <td>Вы получаете казахстанский каталог; Disney+ и HBO Max в Казахстане могут быть
-          недоступны вовсе</td></tr>
+      <td>Прокси не поможет — например, при проверке платёжного региона для лицензий JetBrains</td></tr>
   <tr><td>Мобильные приложения с закреплением сертификата (pinning)</td>
       <td>Работают: сертификат настоящий, соединение сквозное</td></tr>
   <tr><td>Домена нет в списке</td>
