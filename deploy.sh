@@ -21,7 +21,7 @@ set -euo pipefail
 DNSMASQ_CONF="dnsmasq-geoblock.conf"
 NGINX_CONF="nginx.conf"
 NGINX_MAPS=("nginx-sni-allow.map" "nginx-host-allow.map")
-WEB_FILES=("index.html" "dns.mobileconfig" "robots.txt" "sitemap.xml")
+WEB_FILES=("index.html" "dns.mobileconfig" "og-image.svg" "robots.txt" "sitemap.xml")
 SOURCE_YAML="services.yaml"
 
 SSH_PORT=22
@@ -269,10 +269,10 @@ fail() { printf 'ошибка на сервере: %s\n' "$*" >&2; exit 1; }
 mkdir -p "$BACKUP" "$MAP_DIR" "$SSL_DIR" "$WEB_DIR/.well-known/acme-challenge"
 
 # --- всё ли доехало -------------------------------------------------------
-for f in dnsmasq-geoblock.conf nginx.conf nginx-sni-allow.map nginx-host-allow.map index.html dns.mobileconfig robots.txt sitemap.xml; do
+for f in dnsmasq-geoblock.conf nginx.conf nginx-sni-allow.map nginx-host-allow.map index.html dns.mobileconfig og-image.svg robots.txt sitemap.xml; do
 	[[ -s "$STAGE/$f" ]] || fail "файл $f не доехал или пустой — передача оборвалась"
 done
-say "получено 8 файлов"
+say "получено 9 файлов"
 
 # --- проверка синтаксиса ДО того, как что-то тронуто -----------------------
 dnsmasq --test -C "$STAGE/dnsmasq-geoblock.conf" \
@@ -291,19 +291,20 @@ backup_one "$MAP_DIR/nginx-sni-allow.map"  nginx-sni-allow.map
 backup_one "$MAP_DIR/nginx-host-allow.map" nginx-host-allow.map
 backup_one "$WEB_DIR/index.html"           index.html
 backup_one "$WEB_DIR/dns.mobileconfig"     dns.mobileconfig
+backup_one "$WEB_DIR/og-image.svg"         og-image.svg
 backup_one "$WEB_DIR/robots.txt"           robots.txt
 backup_one "$WEB_DIR/sitemap.xml"          sitemap.xml
 say "резервные копии: $BACKUP"
 
 restore() {
 	printf 'откатываю изменения\n' >&2
-	for name in dnsmasq.conf nginx.conf nginx-sni-allow.map nginx-host-allow.map index.html dns.mobileconfig robots.txt sitemap.xml; do
+	for name in dnsmasq.conf nginx.conf nginx-sni-allow.map nginx-host-allow.map index.html dns.mobileconfig og-image.svg robots.txt sitemap.xml; do
 		if [[ -f "$BACKUP/$name" ]]; then
 			case "$name" in
-				dnsmasq.conf)                                        cp -a "$BACKUP/$name" "$DNSMASQ_DST" ;;
-				nginx.conf)                                          cp -a "$BACKUP/$name" "$NGINX_DST" ;;
-				index.html|dns.mobileconfig|robots.txt|sitemap.xml)  cp -a "$BACKUP/$name" "$WEB_DIR/$name" ;;
-				*)                                                   cp -a "$BACKUP/$name" "$MAP_DIR/$name" ;;
+				dnsmasq.conf)                                                     cp -a "$BACKUP/$name" "$DNSMASQ_DST" ;;
+				nginx.conf)                                                       cp -a "$BACKUP/$name" "$NGINX_DST" ;;
+				index.html|dns.mobileconfig|og-image.svg|robots.txt|sitemap.xml)  cp -a "$BACKUP/$name" "$WEB_DIR/$name" ;;
+				*)                                                                cp -a "$BACKUP/$name" "$MAP_DIR/$name" ;;
 			esac
 		fi
 	done
@@ -336,6 +337,7 @@ fi
 # --- статика сайта и профиль iOS ------------------------------------------
 install -m 0644 "$STAGE/index.html"       "$WEB_DIR/index.html"
 install -m 0644 "$STAGE/dns.mobileconfig" "$WEB_DIR/dns.mobileconfig"
+install -m 0644 "$STAGE/og-image.svg"     "$WEB_DIR/og-image.svg"
 install -m 0644 "$STAGE/robots.txt"       "$WEB_DIR/robots.txt"
 install -m 0644 "$STAGE/sitemap.xml"      "$WEB_DIR/sitemap.xml"
 
