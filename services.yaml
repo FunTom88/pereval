@@ -33,6 +33,7 @@ dnsmasq_options:
   - bogus-priv
   - bind-interfaces
   - filter-AAAA
+  - local-ttl=3600
 categories:
   - name: ИИ и языковые модели
     services:
