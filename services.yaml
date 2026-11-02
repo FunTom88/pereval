@@ -118,6 +118,7 @@ categories:
           - robinfrontend-pa.googleapis.com
           - speechs3proto2-pa.googleapis.com
           - stitch.withgoogle.com
+          - geminiweb-pa.clients6.google.com
       - name: xAI / Grok
         domains:
           - x.ai
@@ -152,6 +153,7 @@ categories:
           - files.manus.cdn
           - genspark.ai
           - langdock.com
+          - reve.com
       - name: DeepL
         domains:
           - deepl.com
