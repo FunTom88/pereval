@@ -33,7 +33,9 @@ dnsmasq_options:
   - bogus-priv
   - bind-interfaces
   - filter-AAAA
+  - filter-rr=HTTPS,SVCB
   - local-ttl=3600
+  - max-tcp-connections=150
 categories:
   - name: ИИ и языковые модели
     services:
@@ -52,10 +54,42 @@ categories:
           - chatgpt.com
           - oaistatic.com
           - oaiusercontent.com
+          - oaistatsig.com
           - chat.com
           - ai.com
-          - chat.openai.com.cdn.cloudflare.net
+          - sora.com
+          - chatgpt.site
+          - searchgpt.com
+          - crixet.com
+          - openai.org
+          - openaimerge.com
+          - openaicom.imgix.net
+          - openai.com.cdn.cloudflare.net
           - production-openaicom-storage.azureedge.net
+          - openaiapi-site.azureedge.net
+          - openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
+          - openaicomproductionae4b.blob.core.windows.net
+          - openaiassets.blob.core.windows.net
+          - statsig.com
+          - statsigapi.net
+          - statsigcdn.com
+          - featuregates.org
+          - featureassets.org
+          - assetsconfigcdn.org
+          - prodregistryv2.org
+          - beyondwickedmapping.org
+          - livekit.cloud
+          - auth0.com
+          - arkoselabs.com
+          - workos.com
+          - workoscdn.com
+          - workos-dns.com
+          - workos.imgix.net
+          - browser-intake-datadoghq.com
+          - http-intake.logs.datadoghq.com
+          - openai.qualtrics.com
+          - ct.sendgrid.net
+          - js.intercomcdn.com
       - name: Google Gemini / AI Studio / NotebookLM / Jules / Antigravity
         domains:
           - gemini.google
