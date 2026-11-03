@@ -101,6 +101,8 @@ categories:
           - generativeai.google
           - generativelanguage.googleapis.com
           - notebooklm.google
+          - notebook.google
+          - notebook.google.com
           - notebooklm.google.com
           - jules.google
           - jules.google.com
