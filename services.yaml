@@ -20,8 +20,9 @@
 #     python3 generate.py services.yaml 153.80.200.170 --check
 
 meta:
-  name: Перевал
-  origin: https://pereval.portbuddy.tech
+  name: PBOX Pereval
+  origin: https://dns.pbox-bk.ru
+  domain: dns.pbox-bk.ru
 dnsmasq_options:
   - listen-address=0.0.0.0
   - port=53
