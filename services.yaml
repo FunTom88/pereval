@@ -30,12 +30,14 @@ dnsmasq_options:
   - server=1.1.1.1
   - server=8.8.8.8
   - cache-size=10000
+  - min-cache-ttl=300
+  - dns-forward-max=1000
+  - max-tcp-connections=500
   - bogus-priv
   - bind-interfaces
   - filter-AAAA
   - filter-rr=HTTPS,SVCB
   - local-ttl=3600
-  - max-tcp-connections=150
 categories:
   - name: ИИ и языковые модели
     services:

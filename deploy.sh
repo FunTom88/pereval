@@ -224,7 +224,8 @@ if ((DRY_RUN)); then
 	for w in "${WEB_FILES[@]}"; do
 		printf '    %-24s -> %s\n' "$w" "/var/www/geoblock/$w"
 	done
-	printf '    затем: dnsmasq --test, nginx -t, restart dnsmasq, reload nginx, certbot ($DOMAIN)\n'
+	printf '    %-24s -> %s\n' "sysctl (highload)" "/etc/sysctl.d/99-geoblock-highload.conf"
+	printf '    затем: sysctl -e -p, dnsmasq --test, nginx -t, restart dnsmasq, reload nginx, certbot (%s)\n' "$DOMAIN"
 	exit 0
 fi
 
@@ -263,11 +264,12 @@ NGINX_DST="/etc/nginx/nginx.conf"
 MAP_DIR="/etc/nginx/geoblock"
 SSL_DIR="/etc/nginx/geoblock/ssl"
 WEB_DIR="/var/www/geoblock"
+SYSCTL_DST="/etc/sysctl.d/99-geoblock-highload.conf"
 
 say()  { printf '    %s\n' "$*"; }
 fail() { printf 'ошибка на сервере: %s\n' "$*" >&2; exit 1; }
 
-mkdir -p "$BACKUP" "$MAP_DIR" "$SSL_DIR" "$WEB_DIR/.well-known/acme-challenge"
+mkdir -p "$BACKUP" "$MAP_DIR" "$SSL_DIR" "$WEB_DIR/.well-known/acme-challenge" /etc/sysctl.d
 
 # --- всё ли доехало -------------------------------------------------------
 for f in dnsmasq-geoblock.conf nginx.conf nginx-sni-allow.map nginx-host-allow.map index.html terms.html privacy.html dns.mobileconfig og-image.svg og-image.png robots.txt sitemap.xml; do
@@ -298,15 +300,17 @@ backup_one "$WEB_DIR/og-image.svg"         og-image.svg
 backup_one "$WEB_DIR/og-image.png"         og-image.png
 backup_one "$WEB_DIR/robots.txt"           robots.txt
 backup_one "$WEB_DIR/sitemap.xml"          sitemap.xml
+backup_one "$SYSCTL_DST"                   99-geoblock-highload.conf
 say "резервные копии: $BACKUP"
 
 restore() {
 	printf 'откатываю изменения\n' >&2
-	for name in dnsmasq.conf nginx.conf nginx-sni-allow.map nginx-host-allow.map index.html terms.html privacy.html dns.mobileconfig og-image.svg og-image.png robots.txt sitemap.xml; do
+	for name in dnsmasq.conf nginx.conf nginx-sni-allow.map nginx-host-allow.map index.html terms.html privacy.html dns.mobileconfig og-image.svg og-image.png robots.txt sitemap.xml 99-geoblock-highload.conf; do
 		if [[ -f "$BACKUP/$name" ]]; then
 			case "$name" in
 				dnsmasq.conf)                                                                                         cp -a "$BACKUP/$name" "$DNSMASQ_DST" ;;
 				nginx.conf)                                                                                           cp -a "$BACKUP/$name" "$NGINX_DST" ;;
+				99-geoblock-highload.conf)                                                                            cp -a "$BACKUP/$name" "$SYSCTL_DST" ;;
 				index.html|terms.html|privacy.html|dns.mobileconfig|og-image.svg|og-image.png|robots.txt|sitemap.xml) cp -a "$BACKUP/$name" "$WEB_DIR/$name" ;;
 				*)                                                                                                    cp -a "$BACKUP/$name" "$MAP_DIR/$name" ;;
 			esac
@@ -315,6 +319,30 @@ restore() {
 	systemctl restart dnsmasq 2>/dev/null || true
 	systemctl reload nginx 2>/dev/null || systemctl restart nginx 2>/dev/null || true
 }
+
+# --- тюнинг сетевого стека ядра под высокую нагрузку -----------------------
+cat >"$SYSCTL_DST" <<'SYSCTL'
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+net.ipv4.ip_local_port_range = 10240 65535
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_fin_timeout = 15
+net.ipv4.tcp_max_tw_buckets = 131072
+net.core.somaxconn = 16384
+net.core.netdev_max_backlog = 16384
+net.ipv4.tcp_max_syn_backlog = 16384
+net.netfilter.nf_conntrack_max = 262144
+net.netfilter.nf_conntrack_tcp_timeout_established = 1800
+net.netfilter.nf_conntrack_tcp_timeout_time_wait = 30
+net.netfilter.nf_conntrack_tcp_timeout_close_wait = 15
+net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 30
+net.ipv4.tcp_keepalive_time = 300
+net.ipv4.tcp_keepalive_intvl = 30
+net.ipv4.tcp_keepalive_probes = 3
+SYSCTL
+chmod 0644 "$SYSCTL_DST"
+sysctl -e -p "$SYSCTL_DST" >/dev/null 2>&1 || sysctl --system >/dev/null 2>&1 || true
+say "применены параметры ядра ($SYSCTL_DST)"
 
 # --- firewall: открыть TCP/853 для DNS-over-TLS ---------------------------
 if command -v ufw >/dev/null 2>&1 && ufw status 2>/dev/null | grep -q '^Status: active'; then
