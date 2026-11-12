@@ -250,6 +250,9 @@ categories:
           - getoutline.com
           - clickup.com
           - zapier.com
+      - name: Spotify (веб-сайт)
+        domains:
+          - spotify.com
 disabled:
   - name: Общая инфраструктура Google и Firebase
     note: >-
