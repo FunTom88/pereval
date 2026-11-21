@@ -275,6 +275,14 @@ categories:
           - elevenlabs.io
           - elevenmusic.io
           - elevenreader.io
+      - name: Brawl Stars (iPhone)
+        domains:
+          - brawlstarsgame.com
+          - brawlstars.com
+          - supercell.com
+          - supercellid.com
+          - supercellgames.com
+          - supercellstore.com
 disabled:
   - name: Общая инфраструктура Google и Firebase
     note: >-
