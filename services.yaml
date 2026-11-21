@@ -275,16 +275,17 @@ categories:
           - elevenlabs.io
           - elevenmusic.io
           - elevenreader.io
-  - name: TikTok (эксперимент)
-    services:
-      - name: "TikTok: сайт, API и CDN"
-        domains:
-          - tiktok.com
-          - tiktokv.com
-          - tiktokcdn.com
-          - tiktokcdn-eu.com
-          - musical.ly
-          - byteoversea.com
+# TikTok temporarily disabled after iPhone playback regression; keep for staged testing.
+#   - name: TikTok (эксперимент)
+#     services:
+#       - name: "TikTok: сайт, API и CDN"
+#         domains:
+#           - tiktok.com
+#           - tiktokv.com
+#           - tiktokcdn.com
+#           - tiktokcdn-eu.com
+#           - musical.ly
+#           - byteoversea.com
   - name: Игры
     services:
       - name: Brawl Stars (iPhone)
