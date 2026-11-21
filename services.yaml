@@ -275,6 +275,8 @@ categories:
           - elevenlabs.io
           - elevenmusic.io
           - elevenreader.io
+  - name: Игры
+    services:
       - name: Brawl Stars (iPhone)
         domains:
           - brawlstarsgame.com
