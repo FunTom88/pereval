@@ -277,7 +277,7 @@ categories:
           - elevenreader.io
   - name: TikTok (эксперимент)
     services:
-      - name: TikTok: сайт, API и CDN
+      - name: "TikTok: сайт, API и CDN"
         domains:
           - tiktok.com
           - tiktokv.com
