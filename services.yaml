@@ -250,9 +250,31 @@ categories:
           - getoutline.com
           - clickup.com
           - zapier.com
-      - name: Spotify (веб-сайт)
+      - name: Spotify (сайт и медиаресурсы)
         domains:
           - spotify.com
+          - spotify.dev
+          - scdn.co
+          - spotifycdn.com
+          - spotifycdn.net
+          - spoti.fi
+      - name: Notion
+        domains:
+          - notion.so
+          - notion.com
+          - notion.new
+          - notionusercontent.com
+          - notion-static.com
+          - makenotion.com
+      - name: Miro
+        domains:
+          - miro.com
+          - realtimeboard.com
+      - name: ElevenLabs
+        domains:
+          - elevenlabs.io
+          - elevenmusic.io
+          - elevenreader.io
 disabled:
   - name: Общая инфраструктура Google и Firebase
     note: >-
